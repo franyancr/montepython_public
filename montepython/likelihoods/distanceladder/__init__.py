@@ -894,7 +894,14 @@ class distanceladder(Likelihood):
 				delim = ' '
 
 				TRGB_sn = TRGB_sn_reader(file,index_array,header_length,delim)
+		if self.calib == 'combo':
+			if self.supernova_data == 'panth':
+				file = "/distanceladder/combined_localsn_data.txt"
+				index_array = [0,1,2,3,4,5]
+				header_length = 1
+				delim = ' '
 
+				TRGB_sn = TRGB_sn_reader(file,index_array,header_length,delim)
 
 
 		# This block is where the hubble flow SN data will be loaded and organized
@@ -1000,7 +1007,7 @@ class distanceladder(Likelihood):
 
 # This takes the imported TRGB SN data, creates a diction where where the elements of the dictionary are instances
 # of the local SN class
-		if self.calib == 'TRGB':
+		if self.calib == 'TRGB' or self.calib == 'combo':
 			hosts=[]
 			for i in range(len(TRGB_sn)):
 				hosts.append(TRGB_sn[i][0])
@@ -1208,7 +1215,7 @@ class distanceladder(Likelihood):
 			# This block is where DM_sn_obs will be calculated for each SN
 
 
-		if self.calib == 'TRGB':
+		if self.calib == 'TRGB' or self.calib == 'combo':
 
 			for key in TRGB_sn_dict:
 				cc = TRGB_sn_dict[key].mu
